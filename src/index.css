@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-vinyl-black: #121212;
+  --color-oat-paper: #F7F2EC;
+  --color-mustard: #D49A00;
+  --color-rust: #BC4A3C;
+  --color-forest: #2D4F4F;
+  --color-stone: #E8E2D9;
+
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 8px 16px rgba(0,0,0,0.15);
+  --shadow-lg: 0 24px 48px rgba(0,0,0,0.4);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+}
+
+/* FIX: Ensure high contrast text by default */
+@layer base {
+  body, html {
+    @apply bg-[#121212] text-[#F7F2EC] font-sans antialiased;
+    line-height: 1.6;
+  }
+
+  #root {
+    @apply min-h-screen h-full;
+  }
+}
+
+/* 📐 ROCK SOLID GRID LAYOUT */
+.app-container {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--color-vinyl-black);
+}
+
+.main-content {
+  background-color: var(--color-oat-paper);
+  color: var(--color-vinyl-black);
+  margin: 1rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+  min-width: 0;
+  position: relative;
+  height: calc(100vh - 2rem);
+}
+
+.nav-rail {
+  width: 80px;
+  background-color: var(--color-vinyl-black);
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+  gap: 2rem;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Custom Components */
+.btn-retro {
+  @apply inline-flex items-center gap-2 px-6 py-3 rounded-sm font-serif font-medium transition-all cursor-pointer bg-[#121212] text-white;
+}
+
+.btn-retro:hover {
+  @apply opacity-90 scale-[1.02];
+}
+
+.btn-retro-accent {
+  @apply bg-[#D49A00] text-[#121212] font-bold;
+}
+
+.nav-icon {
+  @apply text-[#F7F2EC] opacity-50 transition-all cursor-pointer hover:opacity-100;
+}
+
+.nav-icon.active {
+  @apply opacity-100 text-[#D49A00];
+}
+
+/* Animations */
+.slide-in {
+  animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 60px;
+  }
+}
