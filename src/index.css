@@ -100,6 +100,32 @@
 @media (max-width: 768px) {
   .app-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 60px;
+    grid-template-rows: 1fr 64px;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .nav-rail {
+    width: 100% !important;
+    height: 64px !important;
+    flex-direction: row !important;
+    padding: 0 1rem !important;
+    gap: 0 !important;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-rail > div:first-child,
+  .nav-rail > div:last-child {
+    display: none !important;
+  }
+
+  .main-content {
+    margin: 0;
+    border-radius: 0;
+    height: calc(100vh - 64px);
   }
 }

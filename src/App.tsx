@@ -25,12 +25,23 @@ function App() {
   } = useFamilyData();
   
   const [isOpen, setIsOpen] = useState(false);
+  const [hasPasswordAccess, setHasPasswordAccess] = useState(() => {
+    return sessionStorage.getItem('mandel_family_access') === 'true';
+  });
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [category, setCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [view, setView] = useState<'collection' | 'pantry' | 'menu' | 'feedback' | 'feedback_dashboard'>('collection');
+
+  const handlePasswordCorrect = () => {
+    sessionStorage.setItem('mandel_family_access', 'true');
+    setHasPasswordAccess(true);
+    if (!user) {
+      login();
+    }
+  };
 
   // Filtering Logic (Title + Tags)
   const filteredRecipes = recipes.filter(recipe => {
@@ -50,6 +61,8 @@ function App() {
     return (
       <BookCover 
         isLoggedIn={!!user} 
+        hasPasswordAccess={hasPasswordAccess}
+        onPasswordCorrect={handlePasswordCorrect}
         onOpen={user ? () => setIsOpen(true) : login} 
       />
     );
@@ -134,8 +147,8 @@ function App() {
               <div className="slide-in">
                 <div className="mb-12 border-b-2 border-stone-200 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-8">
                   <div className="space-y-2">
-                    <h2 className="text-6xl font-serif tracking-tight">The Collection.</h2>
-                    <p className="font-serif italic text-stone-600 text-xl">Family archives curated by the Mandels</p>
+                    <h2 className="text-4xl md:text-6xl font-serif tracking-tight">The Collection.</h2>
+                    <p className="font-serif italic text-stone-600 text-lg md:text-xl">Family archives curated by the Mandels</p>
                   </div>
                   
                   <div className="flex flex-wrap items-center gap-4">

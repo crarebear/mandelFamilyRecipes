@@ -30,7 +30,9 @@ export const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ onClose, onSave,
     instructions: initialRecipe?.instructions || [''],
     tags: initialRecipe?.tags || [],
     sourceUrl: initialRecipe?.sourceUrl || '',
-    cookCount: initialRecipe?.cookCount || 0
+    cookCount: initialRecipe?.cookCount || 0,
+    prepTime: initialRecipe?.prepTime || '',
+    cookTime: initialRecipe?.cookTime || ''
   });
 
   const [newTag, setNewTag] = useState('');
@@ -361,9 +363,26 @@ export const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ onClose, onSave,
                 <div className="space-y-12">
                   <input 
                     className="w-full bg-transparent border-none outline-none text-7xl font-serif tracking-tighter text-stone-950"
-                    value={scrapedRecipe.title}
                     onChange={(e) => setScrapedRecipe({...scrapedRecipe, title: e.target.value})}
                   />
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-[0.4em] text-stone-500">Prep.</label>
+                      <input 
+                        className="w-full bg-stone-100 p-4 rounded-xl border border-stone-200 font-serif text-xl"
+                        value={scrapedRecipe.prepTime || ''}
+                        onChange={e => setScrapedRecipe({...scrapedRecipe, prepTime: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-[0.4em] text-stone-500">Cook / Total.</label>
+                      <input 
+                        className="w-full bg-stone-100 p-4 rounded-xl border border-stone-200 font-serif text-xl"
+                        value={scrapedRecipe.cookTime || ''}
+                        onChange={e => setScrapedRecipe({...scrapedRecipe, cookTime: e.target.value})}
+                      />
+                    </div>
+                  </div>
                   <div className="space-y-8">
                     <label className="text-xs font-black uppercase tracking-[0.4em] text-stone-500">Parsed Ingredients.</label>
                     {scrapedRecipe.ingredients.map((ing: any, i: number) => (

@@ -31,8 +31,8 @@ export const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, onEd
   return (
     <div className="max-w-6xl mx-auto space-y-16 py-12">
       {/* Editorial Header */}
-      <header className="space-y-8">
-        <div className="flex justify-between items-center">
+      <header className="space-y-8 px-4 md:px-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <button 
             onClick={onBack}
             className="flex items-center gap-2 text-[#BC4A3C] hover:text-[#121212] transition-colors font-serif italic text-lg group"
@@ -41,53 +41,55 @@ export const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, onEd
             <span>Back to Collection</span>
           </button>
           
-          <div className="flex gap-4">
+          <div className="flex flex-wrap items-center gap-4 w-full md:w-auto">
             {isDeleting ? (
-              <div className="flex items-center gap-2 animate-in slide-in-from-right-4 transition-all">
-                <p className="text-xs font-black uppercase tracking-widest text-[#BC4A3C] px-4 font-serif italic">Archive forever?</p>
+              <div className="flex flex-wrap items-center gap-2 animate-in slide-in-from-right-4 transition-all w-full md:w-auto">
+                <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-[#BC4A3C] px-0 md:px-4 font-serif italic">Archive forever?</p>
                 <button 
                   onClick={handleDelete}
-                  className="bg-[#BC4A3C] px-6 py-3 rounded-xl text-white text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 active:scale-95 transition-all"
+                  className="bg-[#BC4A3C] px-4 md:px-6 py-3 rounded-xl text-white text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 active:scale-95 transition-all"
                 >
                   Yes, Delete
                 </button>
                 <button 
                   onClick={() => setIsDeleting(false)}
-                  className="bg-stone-200 px-6 py-3 rounded-xl text-stone-600 text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 active:scale-95 transition-all"
+                  className="bg-stone-200 px-4 md:px-6 py-3 rounded-xl text-stone-600 text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 active:scale-95 transition-all"
                 >
                   Cancel
                 </button>
               </div>
             ) : (
-              <>
-                <div className="flex items-center gap-2 bg-stone-100 p-1 rounded-xl border border-stone-200 mr-4">
+              <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200">
                    {[0.5, 1, 2, 3].map(m => (
                      <button 
                        key={m}
                        onClick={() => setMultiplier(m)}
-                       className={`px-4 py-2 rounded-lg text-[10px] font-black tracking-widest uppercase transition-all ${multiplier === m ? 'bg-stone-900 text-white shadow-lg' : 'text-stone-400 hover:text-stone-900'}`}
+                       className={`px-3 md:px-4 py-2 rounded-lg text-[9px] md:text-[10px] font-black tracking-widest uppercase transition-all ${multiplier === m ? 'bg-stone-900 text-white shadow-lg' : 'text-stone-400 hover:text-stone-900'}`}
                      >
                        {m}x
                      </button>
                    ))}
                 </div>
-                <button 
-                  onClick={() => onEdit(recipe)}
-                  className="p-3 bg-white border-2 border-stone-200 text-stone-600 hover:text-[#D49A00] hover:border-[#D49A00] rounded-xl transition-all shadow-sm flex items-center gap-2"
-                  title="Edit Recipe"
-                >
-                  <Edit3 size={18} />
-                  <span className="text-xs font-black uppercase tracking-widest">Edit</span>
-                </button>
-                <button 
-                  onClick={() => setIsDeleting(true)}
-                  className="p-3 bg-white border-2 border-stone-200 text-stone-600 hover:text-red-600 hover:border-red-600 rounded-xl transition-all shadow-sm flex items-center gap-2"
-                  title="Delete Recipe"
-                >
-                  <Trash2 size={18} />
-                  <span className="text-xs font-black uppercase tracking-widest">Delete</span>
-                </button>
-              </>
+                <div className="flex gap-2 ml-auto">
+                  <button 
+                    onClick={() => onEdit(recipe)}
+                    className="p-3 bg-white border-2 border-stone-200 text-stone-600 hover:text-[#D49A00] hover:border-[#D49A00] rounded-xl transition-all shadow-sm flex items-center gap-2"
+                    title="Edit Recipe"
+                  >
+                    <Edit3 size={16} />
+                    <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Edit</span>
+                  </button>
+                  <button 
+                    onClick={() => setIsDeleting(true)}
+                    className="p-3 bg-white border-2 border-stone-200 text-stone-600 hover:text-red-600 hover:border-red-600 rounded-xl transition-all shadow-sm flex items-center gap-2"
+                    title="Delete Recipe"
+                  >
+                    <Trash2 size={16} />
+                    <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Delete</span>
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -104,18 +106,34 @@ export const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, onEd
                 </span>
               ))}
             </div>
-            <h1 className="text-6xl md:text-8xl font-serif text-[#121212] tracking-tighter leading-[0.85] max-w-4xl">
+            <h1 className="text-4xl md:text-8xl font-serif text-[#121212] tracking-tighter leading-[0.85] max-w-4xl">
               {recipe.title}
             </h1>
           </div>
           
-          <div className="lg:col-span-4 flex flex-col gap-4 text-stone-600 font-serif italic text-lg border-l border-[#E8E2D9] pl-10 h-min self-end pb-2">
+          <div className="lg:col-span-4 flex flex-col gap-4 text-stone-600 font-serif italic text-lg border-l-0 md:border-l border-[#E8E2D9] pl-0 md:pl-10 h-min self-end pb-2">
             <div className="flex items-center gap-3 text-stone-400">
                <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-900">
                   <CheckCircle size={14} />
                </div>
                <span>Cooked {recipe.cookCount || 0} times</span>
             </div>
+            {recipe.prepTime && (
+              <div className="flex items-center gap-3 text-stone-400">
+                <div className="w-8 h-8 rounded-full bg-stone-50 border border-stone-200 flex items-center justify-center text-stone-900">
+                   <ChefHat size={14} />
+                </div>
+                <span>Prep: {recipe.prepTime}</span>
+              </div>
+            )}
+            {recipe.cookTime && (
+              <div className="flex items-center gap-3 text-stone-400">
+                <div className="w-8 h-8 rounded-full bg-stone-50 border border-stone-200 flex items-center justify-center text-stone-900">
+                   <ShoppingCart size={14} />
+                </div>
+                <span>Cook: {recipe.cookTime}</span>
+              </div>
+            )}
             {recipe.lastScheduled && (
               <div className="flex items-center gap-3 text-stone-400">
                  <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-900">

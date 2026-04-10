@@ -10,6 +10,8 @@ export interface Recipe {
   createdAt?: string;
   cookCount: number;
   lastScheduled?: string;
+  prepTime?: string;
+  cookTime?: string;
 }
 
 export type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';

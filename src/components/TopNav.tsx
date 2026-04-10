@@ -22,20 +22,20 @@ export const TopNav: React.FC<TopNavProps> = ({
   return (
     <aside className="nav-rail">
       {/* Brand Icon */}
-      <div className="flex flex-col items-center w-full">
-        <div className="w-12 h-12 rounded-full bg-[#D49A00] flex items-center justify-center text-[#121212] shadow-lg">
-          <ChefHat size={24} />
+      <div className="flex flex-col items-center w-full md:block">
+        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#D49A00] flex items-center justify-center text-[#121212] shadow-lg">
+          <ChefHat size={28} />
         </div>
       </div>
 
       {/* Navigation Icons */}
-      <nav className="flex-1 flex flex-col gap-10 items-center justify-center w-full">
+      <nav className="flex-1 flex md:flex-col items-center justify-around md:justify-center w-full">
         <button 
           onClick={() => onViewChange('collection')}
           className={`nav-icon ${currentView === 'collection' ? 'active' : ''}`}
           title="All Recipes"
         >
-          <BookOpen size={28} />
+          <BookOpen size={32} />
         </button>
 
         <button 
@@ -43,7 +43,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           className={`nav-icon ${currentView === 'pantry' ? 'active' : ''}`}
           title="My Kitchen Cabinet"
         >
-          <Package size={28} />
+          <Package size={32} />
         </button>
 
         <button 
@@ -51,7 +51,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           className={`nav-icon ${currentView === 'menu' ? 'active' : ''}`}
           title="Weekly Menu Plan"
         >
-          <Calendar size={28} />
+          <Calendar size={32} />
         </button>
 
         <button 
@@ -59,12 +59,12 @@ export const TopNav: React.FC<TopNavProps> = ({
           className={`nav-icon ${currentView === 'feedback' ? 'active' : ''}`}
           title="Feedback & Vision"
         >
-          <MessageSquare size={28} />
+          <MessageSquare size={32} />
         </button>
 
         <button 
           onClick={onAddRecipe}
-          className="w-14 h-14 rounded-2xl bg-[#BC4A3C] text-white flex items-center justify-center shadow-[0_10px_20px_rgba(188,74,60,0.4)] hover:scale-110 hover:bg-[#A03A2E] transition-all transform rotate-3"
+          className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#BC4A3C] text-white flex items-center justify-center shadow-[0_10px_20px_rgba(188,74,60,0.4)] hover:scale-110 hover:bg-[#A03A2E] transition-all transform rotate-3"
           title="Add Recipe"
         >
           <Plus size={32} />
@@ -76,12 +76,12 @@ export const TopNav: React.FC<TopNavProps> = ({
             className={`nav-icon ${isDropdownOpen ? 'active' : ''}`}
             title="Archival Controls"
           >
-            <Settings size={28} />
+            <Settings size={32} />
           </button>
           
           {isDropdownOpen && (
-            <div className="absolute left-full ml-6 top-0 w-64 bg-[#1A1A1B] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] rounded-lg overflow-hidden z-[200] p-2">
-              <div className="px-5 py-3 border-b border-white/5 mb-2">
+            <div className="absolute bottom-full md:bottom-auto md:left-full md:ml-6 mb-4 md:mb-0 md:top-0 w-64 bg-[#1A1A1B] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] rounded-lg overflow-hidden z-[200] p-2">
+              <div className="px-5 py-3 border-b border-white/5 mb-2 hidden md:block">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D49A00]">Archival Controls</p>
               </div>
               <button

@@ -38,7 +38,7 @@ export const RecipeList: React.FC<RecipeListProps> = ({ recipes, onSelectRecipe 
                 </div>
                 <div className="flex items-center gap-1.5 text-stone-600 text-sm font-medium">
                   <ShoppingCart size={16} />
-                  <span>~15 min</span>
+                  <span>{recipe.cookTime || recipe.prepTime || '~15 min'}</span>
                 </div>
               </div>
               

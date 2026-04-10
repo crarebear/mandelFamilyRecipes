@@ -1,5 +1,6 @@
 import { geminiModel } from "./gemini";
 import type { Recipe } from "./mockData";
+import { parseNYTRecipe } from "./nytParser";
 
 const PROXIES = [
   "https://api.allorigins.win/get?url=",
@@ -49,11 +50,22 @@ export async function scrapeRecipeFromUrl(url: string): Promise<Omit<Recipe, 'id
 
   if (!html) throw new Error(`Could not reach the website: ${errorMsg || 'CORS restriction'}`);
 
+  // 2. Specialized Template Parsers
+  if (url.includes('cooking.nytimes.com')) {
+    try {
+      console.log("[Scraper] NYT Link Detected. Using Template Parser.");
+      const recipe = parseNYTRecipe(html);
+      return { ...recipe, sourceUrl: url };
+    } catch (e) {
+      console.warn("[Scraper] NYT Template Parser failed. Falling back to Gemini.", e);
+    }
+  }
+
   try {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     
-    // 2. Structured Data Extraction (JSON-LD)
+    // 3. Structured Data Extraction (JSON-LD Fallback for AI normalization)
     const jsonLdScripts = doc.querySelectorAll('script[type="application/ld+json"]');
     let recipeData: any = null;
 
@@ -82,7 +94,7 @@ export async function scrapeRecipeFromUrl(url: string): Promise<Omit<Recipe, 'id
       inputForAI = doc.body.innerText.replace(/\s+/g, ' ').trim().slice(0, 8000);
     }
 
-    // 3. Prompt Gemini to normalize
+    // 4. Prompt Gemini to normalize
     const prompt = `
       Extract/Normalize recipe details. 
       Format as a valid JSON object matching this interface:
